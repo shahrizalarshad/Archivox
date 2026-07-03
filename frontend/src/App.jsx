@@ -74,6 +74,7 @@ function EditorPage() {
   // Sidebar Tabs
   const [activeSidebarTab, setActiveSidebarTab] = useState('bina'); // 'bina', 'alam', 'sistem'
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(true);
 
   // Auth State
   const [gallery, setGallery] = useState([]);
@@ -975,45 +976,58 @@ function EditorPage() {
 
         {/* Overlay Arahan */}
         <div className="overlay-instructions">
-          <h3>Panduan Navigasi</h3>
-          {walkMode ? (
-            <>
-              <p className="neon-instruction" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px' }}><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                MOD BERJALAN AKTIF
-              </p>
-              <p style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px' }}><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><path d="M6 8h.001"/><path d="M10 8h.001"/><path d="M14 8h.001"/><path d="M18 8h.001"/><path d="M8 12h.001"/><path d="M12 12h.001"/><path d="M16 12h.001"/><path d="M7 16h10"/></svg>
-                W, A, S, D: Bergerak | Space: Lompat | ESC: Keluar
-              </p>
-            </>
-          ) : activeTool === 'select' ? (
-            <>
-              <p style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px' }}><rect x="3" y="3" width="18" height="18" rx="2" ry="2" strokeDasharray="4 4"/></svg>
-                Klik 2 blok berlainan untuk pilih rantau (Bounding Box)
-              </p>
-              <p style={{color: '#ffea00'}}>Status: {selectedVoxels.length} blok dipilih</p>
-            </>
-          ) : activeTool === 'paste' ? (
-            <>
-              <p className="neon-instruction" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px' }}><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
-                MOD TAMPAL AKTIF
-              </p>
-              <p>Klik di mana-mana petak untuk meletakkan templat/salinan</p>
-            </>
-          ) : (
-            <>
-              <p style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px' }}><rect x="5" y="2" width="14" height="20" rx="7" ry="7"/><path d="M12 6v4"/></svg>
-                Klik Kiri + Seret: Pusing | Scroll: Zoom
-              </p>
-              <p style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px' }}><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><path d="M6 8h.001"/><path d="M10 8h.001"/><path d="M14 8h.001"/><path d="M18 8h.001"/><path d="M8 12h.001"/><path d="M12 12h.001"/><path d="M16 12h.001"/><path d="M7 16h10"/></svg>
-                Ctrl+Z: Undo | Ctrl+Shift+Z: Redo
-              </p>
-            </>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h3 style={{ margin: 0 }}>Panduan Navigasi</h3>
+            <button 
+              onClick={() => setShowInstructions(!showInstructions)}
+              style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '14px', lineHeight: 1 }}
+            >
+              {showInstructions ? '▼' : '▲'}
+            </button>
+          </div>
+          
+          {showInstructions && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '6px' }}>
+              {walkMode ? (
+                <>
+                  <p className="neon-instruction" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px' }}><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    MOD BERJALAN AKTIF
+                  </p>
+                  <p style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px' }}><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><path d="M6 8h.001"/><path d="M10 8h.001"/><path d="M14 8h.001"/><path d="M18 8h.001"/><path d="M8 12h.001"/><path d="M12 12h.001"/><path d="M16 12h.001"/><path d="M7 16h10"/></svg>
+                    W, A, S, D: Bergerak | Space: Lompat | ESC: Keluar
+                  </p>
+                </>
+              ) : activeTool === 'select' ? (
+                <>
+                  <p style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px' }}><rect x="3" y="3" width="18" height="18" rx="2" ry="2" strokeDasharray="4 4"/></svg>
+                    Klik 2 blok berlainan untuk pilih rantau (Bounding Box)
+                  </p>
+                  <p style={{color: '#ffea00'}}>Status: {selectedVoxels.length} blok dipilih</p>
+                </>
+              ) : activeTool === 'paste' ? (
+                <>
+                  <p className="neon-instruction" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px' }}><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                    MOD TAMPAL AKTIF
+                  </p>
+                  <p>Klik di mana-mana petak untuk meletakkan templat/salinan</p>
+                </>
+              ) : (
+                <>
+                  <p style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px' }}><rect x="5" y="2" width="14" height="20" rx="7" ry="7"/><path d="M12 6v4"/></svg>
+                    Klik Kiri + Seret: Pusing | Scroll: Zoom
+                  </p>
+                  <p style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '14px', height: '14px' }}><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><path d="M6 8h.001"/><path d="M10 8h.001"/><path d="M14 8h.001"/><path d="M18 8h.001"/><path d="M8 12h.001"/><path d="M12 12h.001"/><path d="M16 12h.001"/><path d="M7 16h10"/></svg>
+                    Ctrl+Z: Undo | Ctrl+Shift+Z: Redo
+                  </p>
+                </>
+              )}
+            </div>
           )}
         </div>
       </main>
