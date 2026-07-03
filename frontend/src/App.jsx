@@ -918,6 +918,10 @@ function EditorPage() {
             </button>
           </div>
         </section>
+        
+        <div style={{ marginTop: 'auto', paddingTop: '20px', textAlign: 'center', fontSize: '11px', color: 'var(--text-secondary)', opacity: 0.8, letterSpacing: '0.5px' }}>
+          &copy; 2026 Shahriza1&trade;. Hak Cipta Terpelihara.
+        </div>
       </aside>
 
       {/* KANVAS 3D */}
