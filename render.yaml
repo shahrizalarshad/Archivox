@@ -21,9 +21,9 @@ services:
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
-        value: "your-aiven-mysql-host.aivencloud.com"
+        value: "mysql-archivox-shahrizalarshad10-82df.b.aivencloud.com"
       - key: DB_PORT
-        value: "11986"
+        value: "10859"
       - key: DB_DATABASE
         value: "defaultdb"
       - key: DB_USERNAME
