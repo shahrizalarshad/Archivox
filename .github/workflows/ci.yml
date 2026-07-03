@@ -77,8 +77,10 @@ jobs:
     - name: Wait for services to be ready
       run: sleep 15
         
-    - name: Run Backend Migrations
-      run: docker compose exec -T laravel-app php artisan migrate --force
+    - name: Run Backend Setup
+      run: |
+        docker compose exec -T laravel-app php artisan key:generate
+        docker compose exec -T laravel-app php artisan migrate --force
         
     - name: Install Frontend Dependencies
       working-directory: ./frontend
