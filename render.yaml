@@ -17,7 +17,7 @@ services:
       - key: APP_URL
         value: "https://archivox-api.onrender.com"
       - key: FRONTEND_URL
-        value: "https://your-vercel-domain.vercel.app"
+        value: "https://archivox-bice.vercel.app"
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
