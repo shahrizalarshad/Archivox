@@ -18,7 +18,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'
+        php-version: '8.4'
         
     - name: Copy .env
       run: cp .env.example .env
@@ -79,6 +79,7 @@ jobs:
         
     - name: Run Backend Setup
       run: |
+        docker compose exec -T laravel-app composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
         docker compose exec -T laravel-app php artisan key:generate
         docker compose exec -T laravel-app php artisan migrate --force
         
