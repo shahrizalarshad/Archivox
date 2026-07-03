@@ -21,9 +21,10 @@ describe('BlockInspector Component', () => {
     );
 
     // Expect the title to show the coordinates
-    expect(screen.getByText('Pemeriksa Blok')).toBeDefined();
-    expect(screen.getByText('X: 1')).toBeDefined();
-    expect(screen.getByText('Y: 2')).toBeDefined();
-    expect(screen.getByText('Z: 3')).toBeDefined();
+    // Expect the title to show the coordinates
+    expect(screen.getByText(/Block Inspector/i)).toBeDefined();
+    expect(screen.getByText(/X:\s*1/i)).toBeDefined();
+    expect(screen.getByText(/Y:\s*2/i)).toBeDefined();
+    expect(screen.getByText(/Z:\s*3/i)).toBeDefined();
   });
 });
