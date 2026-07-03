@@ -1,0 +1,70 @@
+services:
+  # Perkhidmatan Backend & API (Laravel)
+  laravel-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: archivox-backend
+    container_name: archivox_backend_app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./backend:/var/www
+      - ./backend/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - archivox-network
+
+  # Perkhidmatan Web Server (Nginx)
+  nginx:
+    image: nginx:alpine
+    container_name: archivox_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - archivox-network
+
+  # Perkhidmatan Frontend (React Vite)
+  react-frontend:
+    image: node:20-alpine
+    container_name: archivox_frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm run dev -- --host"
+    networks:
+      - archivox-network
+
+  # Perkhidmatan Pangkalan Data (MySQL)
+  mysql-db:
+    image: mysql:8.0
+    container_name: archivox_mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: archivox_db
+      MYSQL_ROOT_PASSWORD: root_secret_password
+      MYSQL_USER: archivox_user
+      MYSQL_PASSWORD: user_secret_password
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - archivox-network
+
+networks:
+  archivox-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local

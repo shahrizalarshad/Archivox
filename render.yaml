@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: archivox-api
+    env: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile.render
+    plan: free
+    envVars:
+      - key: APP_NAME
+        value: Archivox
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        value: "https://archivox-api.onrender.com"
+      - key: FRONTEND_URL
+        value: "https://your-vercel-domain.vercel.app"
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: "your-aiven-mysql-host.aivencloud.com"
+      - key: DB_PORT
+        value: "11986"
+      - key: DB_DATABASE
+        value: "defaultdb"
+      - key: DB_USERNAME
+        value: "avnadmin"
+      - key: DB_PASSWORD
+        sync: false
