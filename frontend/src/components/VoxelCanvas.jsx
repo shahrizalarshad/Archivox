@@ -422,14 +422,23 @@ export default function VoxelCanvas({
     const z = Math.round(offsetPoint.z);
 
     if (x >= -10 && x <= 10 && y >= 0 && y < 15 && z >= -10 && z <= 10) {
-      setPreview({ x, y, z, active: true });
+      setPreview(prev => {
+        if (prev.active && prev.x === x && prev.y === y && prev.z === z) return prev;
+        return { x, y, z, active: true };
+      });
     } else {
-      setPreview(prev => ({ ...prev, active: false }));
+      setPreview(prev => {
+        if (!prev.active) return prev;
+        return { ...prev, active: false };
+      });
     }
   };
 
   const handlePointerOut = (e) => {
-    setPreview(prev => ({ ...prev, active: false }));
+    setPreview(prev => {
+      if (!prev.active) return prev;
+      return { ...prev, active: false };
+    });
   };
 
   const handleInstanceClick = (e, matKey) => {
