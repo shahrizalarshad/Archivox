@@ -73,6 +73,7 @@ function EditorPage() {
   
   // Sidebar Tabs
   const [activeSidebarTab, setActiveSidebarTab] = useState('bina'); // 'bina', 'alam', 'sistem'
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Auth State
   const [gallery, setGallery] = useState([]);
@@ -506,17 +507,43 @@ function EditorPage() {
         style: { background: 'rgba(30, 30, 35, 0.9)', color: '#fff', border: '1px solid rgba(170, 59, 255, 0.4)', backdropFilter: 'blur(10px)' },
       }}/>
       <div id="stars"></div>
-      <aside className="sidebar">
-        <header className="brand-header">
-          <div className="logo-container">
-            <svg className="logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="12 2 2 22 22 22" />
-            </svg>
+      
+      {!isSidebarOpen && (
+        <button className="mobile-menu-btn" onClick={() => setIsSidebarOpen(true)}>
+          <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: '6px'}}>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          Menu
+        </button>
+      )}
+
+      {isSidebarOpen && (
+        <div 
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 9 }}
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      <aside className={`sidebar ${isSidebarOpen ? 'is-open' : ''}`}>
+        <header className="brand-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div className="logo-container">
+              <svg className="logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="12 2 2 22 22 22" />
+              </svg>
+            </div>
+            <div>
+              <h1>ArchiVox</h1>
+              <p className="subtitle">Procedural Voxel Game</p>
+            </div>
           </div>
-          <div>
-            <h1>ArchiVox</h1>
-            <p className="subtitle">Procedural Voxel Game</p>
-          </div>
+          {isSidebarOpen && (
+            <button className="btn-close" onClick={() => setIsSidebarOpen(false)} style={{ display: 'block' }}>
+              &times;
+            </button>
+          )}
         </header>
 
         {/* Sesi Pengguna */}

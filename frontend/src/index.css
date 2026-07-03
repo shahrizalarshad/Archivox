@@ -1070,3 +1070,35 @@ body {
 
 
 
+
+/* Responsif Mobile Sidebar */
+.mobile-menu-btn {
+  display: none;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 20;
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  color: white;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: block;
+  }
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+}
